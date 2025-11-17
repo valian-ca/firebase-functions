@@ -61,6 +61,9 @@ importers:
       vitest:
         specifier: ^4.0.6
         version: 4.0.6(@types/node@22.19.0)(@vitest/ui@4.0.10)(jiti@2.6.1)(yaml@2.8.1)
+      vitest-mock-extended:
+        specifier: 3.1.0
+        version: 3.1.0(typescript@5.9.3)(vitest@4.0.6)
 
   packages/logger:
     dependencies:
@@ -5604,6 +5607,15 @@ packages:
     peerDependencies:
       typescript: '>=4.0.0'
 
+  ts-essentials@10.1.1:
+    resolution:
+      { integrity: sha512-4aTB7KLHKmUvkjNj8V+EdnmuVTiECzn3K+zIbRthumvHu+j44x3w63xpfs0JL3NGIzGXqoQ7AV591xHO+XrOTw== }
+    peerDependencies:
+      typescript: '>=4.5.0'
+    peerDependenciesMeta:
+      typescript:
+        optional: true
+
   tsconfig-paths@4.2.0:
     resolution:
       { integrity: sha512-NoZ4roiN7LnbKn9QqE1amc9DJfzvZXxF4xDavcOWt1BPkdx+m+0gJuPM+S0vCe7zTJMYUP0R8pO2XMr+Y8oLIg== }
@@ -5822,6 +5834,13 @@ packages:
         optional: true
       yaml:
         optional: true
+
+  vitest-mock-extended@3.1.0:
+    resolution:
+      { integrity: sha512-vCM0VkuocOUBwwqwV7JB7YStw07pqeKvEIrZnR8l3PtwYi6rAAJAyJACeC1UYNfbQWi85nz7EdiXWBFI5hll2g== }
+    peerDependencies:
+      typescript: 3.x || 4.x || 5.x
+      vitest: '>=3.0.0'
 
   vitest@4.0.6:
     resolution:
@@ -11192,6 +11211,10 @@ snapshots:
       picomatch: 4.0.3
       typescript: 5.9.3
 
+  ts-essentials@10.1.1(typescript@5.9.3):
+    optionalDependencies:
+      typescript: 5.9.3
+
   tsconfig-paths@4.2.0:
     dependencies:
       json5: 2.2.3
@@ -11381,6 +11404,12 @@ snapshots:
       fsevents: 2.3.3
       jiti: 2.6.1
       yaml: 2.8.1
+
+  vitest-mock-extended@3.1.0(typescript@5.9.3)(vitest@4.0.6):
+    dependencies:
+      ts-essentials: 10.1.1(typescript@5.9.3)
+      typescript: 5.9.3
+      vitest: 4.0.6(@types/node@22.19.0)(@vitest/ui@4.0.10)(jiti@2.6.1)(yaml@2.8.1)
 
   vitest@4.0.6(@types/node@22.19.0)(@vitest/ui@4.0.10)(jiti@2.6.1)(yaml@2.8.1):
     dependencies:

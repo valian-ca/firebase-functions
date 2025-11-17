@@ -57,6 +57,10 @@
     },
     "./package.json": "./package.json"
   },
+  "files": [
+    "lib",
+    "README.md"
+  ],
   "scripts": {
     "build": "tsdown",
     "prepack": "pnpm run build",

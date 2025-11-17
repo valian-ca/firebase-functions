@@ -1,0 +1,10 @@
+config:
+  MD013: false
+  MD024:
+    siblings_only: true
+ignores:
+  - CHANGELOG.md
+  - packages/**/CHANGELOG.md
+  - GEMINI.md
+  - packages/**/GEMINI.md
+  - packages/**/node_modules/**/*.md

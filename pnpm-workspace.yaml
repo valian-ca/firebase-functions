@@ -1,0 +1,10 @@
+packages:
+  - packages/*
+
+onlyBuiltDependencies:
+  - '@firebase/util'
+  - '@swc/core'
+  - '@valian/eslint-config'
+  - nx
+  - protobufjs
+  - unrs-resolver

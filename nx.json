@@ -48,5 +48,8 @@
     "test": {
       "dependsOn": ["^build"]
     }
+  },
+  "tui": {
+    "enabled": false
   }
 }

@@ -18,7 +18,7 @@
   "version": "1.0.0",
   "scripts": {
     "preinstall": "npx only-allow pnpm",
-    "eslint": "nx run-many --target eslint",
+    "eslint": "nx run-many --target lint",
     "lint:prettier": "prettier --check .",
     "lint:publint": "nx run-many --target lint:publint",
     "lint:md": "markdownlint-cli2 \"**/*.md\" \"#node_modules\"",

@@ -7,8 +7,12 @@
     "tsBuildInfoFile": "dist/tsconfig.lib.tsbuildinfo",
     "types": ["node"]
   },
-  "include": ["src"],
-  "references": [],
+  "include": ["src/**/*.ts"],
+  "references": [
+    {
+      "path": "../logger/tsconfig.lib.json"
+    }
+  ],
   "exclude": [
     "vite.config.ts",
     "vite.config.mts",

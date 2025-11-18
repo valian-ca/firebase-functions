@@ -1,7 +1,7 @@
 import { logger as firebaseLogger } from 'firebase-functions'
 import { Logger as TSLogger } from 'tslog'
 
-type Logger = {
+export type Logger = {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   debug: (...args: any[]) => void
   // eslint-disable-next-line @typescript-eslint/no-explicit-any

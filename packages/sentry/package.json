@@ -1,5 +1,5 @@
 {
-  "name": "@valian/function-logger",
+  "name": "@valian/node-sentry",
   "version": "0.0.1",
   "repository": {
     "type": "git",
@@ -21,12 +21,16 @@
   ],
   "license": "MIT",
   "peerDependencies": {
+    "@sentry/core": "^10",
+    "@sentry/node": "^10",
     "firebase-functions": "^6 || ^7"
   },
   "dependencies": {
-    "tslog": "^4.10.0"
+    "@valian/function-logger": "workspace:*"
   },
   "devDependencies": {
+    "@sentry/core": "10.25.0",
+    "@sentry/node": "10.25.0",
     "firebase-functions": "7.0.0"
   },
   "type": "module",
@@ -43,6 +47,15 @@
         "import": "./lib/index.mjs",
         "require": "./lib/index.cjs",
         "default": "./lib/index.mjs"
+      },
+      "./init": {
+        "types": {
+          "import": "./lib/init-sentry.d.mts",
+          "require": "./lib/init-sentry.d.cts"
+        },
+        "import": "./lib/init-sentry.mjs",
+        "require": "./lib/init-sentry.cjs",
+        "default": "./lib/init-sentry.mjs"
       }
     },
     "main": "./lib/index.cjs",
@@ -54,6 +67,11 @@
       "types": "./src/index.ts",
       "import": "./src/index.ts",
       "default": "./src/index.ts"
+    },
+    "./init": {
+      "types": "./src/init-sentry.ts",
+      "import": "./src/init-sentry.ts",
+      "default": "./src/init-sentry.ts"
     },
     "./package.json": "./package.json"
   },

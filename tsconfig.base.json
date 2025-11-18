@@ -4,6 +4,7 @@
     "composite": true,
     "emitDeclarationOnly": true,
     "moduleResolution": "bundler",
-    "module": "ESNext"
+    "module": "ESNext",
+    "forceConsistentCasingInFileNames": true
   }
 }

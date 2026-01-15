@@ -27,7 +27,7 @@
     "tslog": "^4.10.0"
   },
   "devDependencies": {
-    "firebase-functions": "7.0.0"
+    "firebase-functions": "7.0.3"
   },
   "type": "module",
   "main": "./src/index.ts",

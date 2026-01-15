@@ -21,7 +21,6 @@
   ],
   "license": "MIT",
   "peerDependencies": {
-    "@sentry/core": "^10",
     "@sentry/node": "^10",
     "firebase-functions": "^6 || ^7"
   },
@@ -29,8 +28,7 @@
     "@valian/function-logger": "workspace:*"
   },
   "devDependencies": {
-    "@sentry/core": "10.34.0",
-    "@sentry/node": "10.25.0",
+    "@sentry/node": "10.34.0",
     "firebase-functions": "7.0.3"
   },
   "type": "module",

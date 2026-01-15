@@ -33,7 +33,7 @@
     "@nx/js": "22.0.3",
     "@nx/vite": "22.0.3",
     "@tsconfig/node22": "22.0.4",
-    "@types/node": "22.19.0",
+    "@types/node": "24.10.9",
     "@valian/eslint-config": "1.6.1",
     "@vitest/coverage-v8": "^4.0.6",
     "@vitest/ui": "^4.0.6",

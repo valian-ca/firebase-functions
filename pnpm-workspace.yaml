@@ -5,6 +5,7 @@ onlyBuiltDependencies:
   - '@firebase/util'
   - '@swc/core'
   - '@valian/eslint-config'
+  - esbuild
   - nx
   - protobufjs
   - unrs-resolver

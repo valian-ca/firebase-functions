@@ -24,7 +24,7 @@
     "firebase-functions": "^6 || ^7"
   },
   "dependencies": {
-    "tslog": "^4.10.0"
+    "tslog": "^4.10.2"
   },
   "devDependencies": {
     "firebase-functions": "7.0.3"

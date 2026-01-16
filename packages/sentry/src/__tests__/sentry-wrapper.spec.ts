@@ -197,7 +197,7 @@ describe('sentry-wrapper', () => {
           name: 'pubsub-function',
           op: 'google.pubsub.topic.publish',
         }),
-        expect.any(Function)
+        expect.any(Function),
       )
     })
 
@@ -548,7 +548,7 @@ describe('sentry-wrapper', () => {
           name: 'schedule-v2-function',
           op: 'on-schedule',
         }),
-        expect.any(Function)
+        expect.any(Function),
       )
     })
   })

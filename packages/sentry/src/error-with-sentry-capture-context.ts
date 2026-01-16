@@ -9,7 +9,7 @@ export class ErrorWithSentryCaptureContext extends Error {
   constructor(
     message: string,
     captureContext: Partial<Pick<ScopeContext, 'extra' | 'contexts' | 'tags' | 'fingerprint'>>,
-    options?: ErrorOptions
+    options?: ErrorOptions,
   ) {
     super(message, options)
     this.captureContext = captureContext

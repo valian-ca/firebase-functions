@@ -77,7 +77,6 @@ LOG_LEVEL=error  # Shows only error
 The logger automatically detects the environment:
 
 - **Development Mode**: Uses tslog with pretty formatting when:
-
   - `FUNCTIONS_EMULATOR=true` (Firebase Emulator)
   - `NODE_ENV=test` (Testing environment)
 

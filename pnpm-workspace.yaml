@@ -5,6 +5,15 @@ onlyBuiltDependencies:
   - '@firebase/util'
   - '@swc/core'
   - '@valian/eslint-config'
+  - esbuild
   - nx
   - protobufjs
   - unrs-resolver
+
+peerDependencyRules:
+  allowAny:
+    - storybook
+
+publicHoistPattern:
+  - vitest-mock-extended
+  - '@sentry/core'

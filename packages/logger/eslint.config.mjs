@@ -1,24 +1,15 @@
-import { config } from '@valian/eslint-config'
+import { base } from '@valian/eslint-config/base'
+import { importSort } from '@valian/eslint-config/import-sort'
+import { node } from '@valian/eslint-config/node'
+import { typescript } from '@valian/eslint-config/typescript'
+import { vitest } from '@valian/eslint-config/vitest'
+import { defineConfig, globalIgnores } from 'eslint/config'
 
-export default [
-  ...config.base,
-  ...config.typescript,
-  ...config.importSort,
-  ...config.node,
-  ...config.vitest,
-  {
-    ignores: ['coverage/', 'dist/', 'lib/', 'out-tsc/'],
-  },
-  {
-    files: ['**/*.ts'],
-    languageOptions: {
-      parserOptions: {
-        projectService: true,
-        tsconfigRootDir: import.meta.dirname,
-      },
-    },
-    linterOptions: {
-      reportUnusedDisableDirectives: true,
-    },
-  },
-]
+export default defineConfig([
+  base,
+  typescript,
+  importSort,
+  node,
+  vitest,
+  globalIgnores(['coverage/', 'dist/', 'lib/', 'out-tsc/']),
+])

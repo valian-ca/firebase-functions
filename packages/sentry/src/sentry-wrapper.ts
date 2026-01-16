@@ -46,14 +46,14 @@ const sentryCaptureUnhandledExceptionWrapper =
 export async function sentryConfigurationWrapper<R>(
   context: StartSpanOptions,
   configure: (scope: Scope) => void,
-  work: () => Promise<R>
+  work: () => Promise<R>,
 ) {
   try {
     return await startSpan(context, async () =>
       withScope(async (scope) => {
         configure(scope)
         return work()
-      })
+      }),
     )
   } finally {
     await flush(5000)
@@ -64,7 +64,7 @@ const sentryInvocationV1Wrapper = <R, EC>(
   options: SentryWrapperParams,
   context: EventContext<EC>,
   configure: (scope: Scope) => void,
-  work: () => Promise<R>
+  work: () => Promise<R>,
 ) =>
   sentryConfigurationWrapper(
     { name: options.name, op: context.eventType },
@@ -79,7 +79,7 @@ const sentryInvocationV1Wrapper = <R, EC>(
         timestamp: context.timestamp,
       })
     },
-    sentryCaptureUnhandledExceptionWrapper(work)
+    sentryCaptureUnhandledExceptionWrapper(work),
   )
 
 export const sentryOnPublishV1Wrapper =
@@ -91,13 +91,13 @@ export const sentryOnPublishV1Wrapper =
       (scope) => {
         scope.setContext('PubSub Message', message.json as Record<string, unknown>)
       },
-      () => handler(message, context)
+      () => handler(message, context),
     )
 
 export const sentryOnWriteV1Wrapper =
   <R, EC>(
     options: SentryWrapperParams,
-    handler: (change: Change<DocumentSnapshot>, context: EventContext<EC>) => Promise<R>
+    handler: (change: Change<DocumentSnapshot>, context: EventContext<EC>) => Promise<R>,
   ) =>
   (change: Change<DocumentSnapshot>, context: EventContext<EC>) =>
     sentryInvocationV1Wrapper(
@@ -112,7 +112,7 @@ export const sentryOnWriteV1Wrapper =
           after: JSON.stringify(change.after.data(), null, 2),
         })
       },
-      () => handler(change, context)
+      () => handler(change, context),
     )
 
 export const sentryOnUserChangeV1Wrapper =
@@ -124,7 +124,7 @@ export const sentryOnUserChangeV1Wrapper =
       (scope) => {
         scope.setUser({ id: user.uid })
       },
-      () => handler(user, context)
+      () => handler(user, context),
     )
 
 export const sentryOnScheduleRunV1Wrapper =
@@ -135,14 +135,14 @@ export const sentryOnScheduleRunV1Wrapper =
       context,
       // eslint-disable-next-line @typescript-eslint/no-empty-function -- No need to configure the scope
       () => {},
-      () => handler(context)
+      () => handler(context),
     )
 
 const sentryInvocationV2Wrapper = <R, T>(
   options: SentryWrapperParams,
   event: CloudEvent<T>,
   configure: (scope: Scope) => void,
-  work: () => Promise<R>
+  work: () => Promise<R>,
 ) =>
   sentryConfigurationWrapper(
     { name: options.name, op: event.type },
@@ -158,7 +158,7 @@ const sentryInvocationV2Wrapper = <R, T>(
         timestamp: event.time,
       })
     },
-    sentryCaptureUnhandledExceptionWrapper(work)
+    sentryCaptureUnhandledExceptionWrapper(work),
   )
 
 export const sentryWrapOnDocumentChange =
@@ -173,13 +173,13 @@ export const sentryWrapOnDocumentChange =
           data: event.data,
         })
       },
-      () => handler(event)
+      () => handler(event),
     )
 
 export const sentryWrapOnMessagePublished =
   <T extends Record<string, unknown>, R>(
     options: SentryWrapperParams,
-    handler: (event: CloudEvent<MessagePublishedData<T>>) => Promise<R>
+    handler: (event: CloudEvent<MessagePublishedData<T>>) => Promise<R>,
   ) =>
   async (event: CloudEvent<MessagePublishedData<T>>) =>
     sentryInvocationV2Wrapper(
@@ -188,7 +188,7 @@ export const sentryWrapOnMessagePublished =
       (scope) => {
         scope.setContext('PubSub Message', event.data.message.json)
       },
-      () => handler(event)
+      () => handler(event),
     )
 
 export const sentryWrapOnSchedule =
@@ -200,5 +200,5 @@ export const sentryWrapOnSchedule =
         scope.setTag('function.version', 'v2')
         scope.setTag('function.name', options.name)
       },
-      sentryCaptureUnhandledExceptionWrapper(() => handler(event))
+      sentryCaptureUnhandledExceptionWrapper(() => handler(event)),
     )

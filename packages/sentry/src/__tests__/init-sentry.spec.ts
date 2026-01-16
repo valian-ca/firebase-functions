@@ -19,7 +19,7 @@ describe('initSentry', () => {
       expect.objectContaining({
         integrations: expect.any(Function),
         beforeSend: expect.any(Function),
-      })
+      }),
     )
   })
 
@@ -39,7 +39,7 @@ describe('initSentry', () => {
         tracesSampleRate: 0.5,
         integrations: expect.any(Function),
         beforeSend: expect.any(Function),
-      })
+      }),
     )
   })
 
@@ -94,7 +94,7 @@ describe('initSentry', () => {
           extra: { level: 'middle' },
           tags: { middle: 'true' },
         },
-        { cause: rootCause }
+        { cause: rootCause },
       )
 
       const topError = new ErrorWithSentryCaptureContext(
@@ -103,7 +103,7 @@ describe('initSentry', () => {
           extra: { level: 'top' },
           tags: { top: 'true' },
         },
-        { cause: middleCause }
+        { cause: middleCause },
       )
 
       const event = stub<ErrorEvent>()
@@ -161,7 +161,7 @@ describe('initSentry', () => {
       const error = new ErrorWithSentryCaptureContext(
         'Wrapped error',
         { extra: { foo: 'bar' } },
-        { cause: regularCause }
+        { cause: regularCause },
       )
 
       const event = stub<ErrorEvent>()

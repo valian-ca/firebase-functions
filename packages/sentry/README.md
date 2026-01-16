@@ -59,7 +59,7 @@ export const onUserUpdate = onDocumentWritten(
     const before = event.data?.before.data()
     const after = event.data?.after.data()
     // ...
-  })
+  }),
 )
 ```
 
@@ -74,7 +74,7 @@ export const onTaskCreated = onMessagePublished(
   sentryWrapOnMessagePublished({ name: 'onTaskCreated' }, async (event) => {
     const messageData = event.data.message.json
     // Your function logic here
-  })
+  }),
 )
 ```
 
@@ -88,7 +88,7 @@ export const dailyCleanup = onSchedule(
   'every 24 hours',
   sentryWrapOnSchedule({ name: 'dailyCleanup' }, async (event) => {
     // Your cleanup logic here
-  })
+  }),
 )
 ```
 
@@ -103,7 +103,7 @@ import { sentryOnWriteV1Wrapper } from '@valian/node-sentry'
 export const onUserUpdateV1 = functions.firestore.document('users/{userId}').onWrite(
   sentryOnWriteV1Wrapper({ name: 'onUserUpdateV1' }, async (change, context) => {
     // Your function logic here
-  })
+  }),
 )
 ```
 
@@ -116,7 +116,7 @@ import { sentryOnPublishV1Wrapper } from '@valian/node-sentry'
 export const onTaskCreatedV1 = functions.pubsub.topic('task-created').onPublish(
   sentryOnPublishV1Wrapper({ name: 'onTaskCreatedV1' }, async (message, context) => {
     // Your function logic here
-  })
+  }),
 )
 ```
 
@@ -129,7 +129,7 @@ import { sentryOnUserChangeV1Wrapper } from '@valian/node-sentry'
 export const onUserCreate = functions.auth.user().onCreate(
   sentryOnUserChangeV1Wrapper({ name: 'onUserCreate' }, async (user, context) => {
     // Your function logic here
-  })
+  }),
 )
 ```
 
@@ -142,7 +142,7 @@ import { sentryOnScheduleRunV1Wrapper } from '@valian/node-sentry'
 export const dailyCleanupV1 = functions.pubsub.schedule('every 24 hours').onRun(
   sentryOnScheduleRunV1Wrapper({ name: 'dailyCleanupV1' }, async (context) => {
     // Your cleanup logic here
-  })
+  }),
 )
 ```
 
@@ -167,7 +167,7 @@ throw new ErrorWithSentryCaptureContext(
     },
     fingerprint: ['payment-processing-error'],
   },
-  { cause: originalError }
+  { cause: originalError },
 )
 ```
 
@@ -207,7 +207,7 @@ export const myCustomFunction = async (request, response) => {
     async () => {
       // Your function logic here
       return { success: true }
-    }
+    },
   )
 }
 ```

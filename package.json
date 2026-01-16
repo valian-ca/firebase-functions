@@ -15,7 +15,7 @@
     "firebase",
     "functions"
   ],
-  "version": "1.0.0",
+  "version": "1.0.1",
   "scripts": {
     "preinstall": "npx only-allow pnpm",
     "eslint": "nx run-many --target lint",

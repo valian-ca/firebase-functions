@@ -37,19 +37,13 @@
       }
     },
     {
-      "plugin": "@nx/vite/plugin",
+      "plugin": "@nx/vitest",
       "options": {
-        "testTargetName": "test",
-        "typecheckTargetName": "vite:type-check"
+        "testTargetName": "test"
       }
     }
   ],
-  "targetDefaults": {
-    "test": {
-      "dependsOn": ["^build"]
-    }
-  },
   "tui": {
-    "enabled": false
+    "enabled": true
   }
 }

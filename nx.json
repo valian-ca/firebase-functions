@@ -44,6 +44,6 @@
     }
   ],
   "tui": {
-    "enabled": true
+    "enabled": false
   }
 }

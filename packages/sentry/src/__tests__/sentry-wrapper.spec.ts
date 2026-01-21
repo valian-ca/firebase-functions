@@ -6,6 +6,7 @@ import { type CloudEvent } from 'firebase-functions/core'
 import { type FirestoreEvent } from 'firebase-functions/firestore'
 import { type MessagePublishedData } from 'firebase-functions/pubsub'
 import { type ScheduledEvent } from 'firebase-functions/scheduler'
+import { type Request } from 'firebase-functions/tasks'
 import { type Change, type EventContext } from 'firebase-functions/v1'
 import { type UserRecord } from 'firebase-functions/v1/auth'
 import { type DocumentSnapshot } from 'firebase-functions/v1/firestore'
@@ -23,6 +24,7 @@ import {
   sentryWrapOnDocumentChange,
   sentryWrapOnMessagePublished,
   sentryWrapOnSchedule,
+  sentryWrapOnTaskDispatched,
 } from '../sentry-wrapper'
 
 let mockScope: ReturnType<typeof mock<Scope>>
@@ -547,6 +549,70 @@ describe('sentry-wrapper', () => {
         expect.objectContaining({
           name: 'schedule-v2-function',
           op: 'on-schedule',
+        }),
+        expect.any(Function),
+      )
+    })
+  })
+
+  describe('sentryWrapOnTaskDispatched', () => {
+    it('should wrap Task v2 handler successfully', async () => {
+      const handler = vi.fn().mockResolvedValue('success')
+      const wrapper = sentryWrapOnTaskDispatched({ name: 'task-v2-function' }, handler)
+
+      const request: Request<{ foo: string }> = {
+        id: 'task-123',
+        queueName: 'test-queue',
+        retryCount: 0,
+        data: { foo: 'bar' },
+      } as Request<{ foo: string }>
+
+      const result = await wrapper(request)
+
+      expect(result).toBe('success')
+      expect(handler).toHaveBeenCalledWith(request)
+    })
+
+    it('should set proper context for Task v2', async () => {
+      const handler = vi.fn().mockResolvedValue('success')
+      const wrapper = sentryWrapOnTaskDispatched({ name: 'task-v2-function' }, handler)
+
+      const request: Request<{ data: string }> = {
+        id: 'task-456',
+        queueName: 'my-queue',
+        retryCount: 2,
+        data: { data: 'test-data' },
+      } as Request<{ data: string }>
+
+      await wrapper(request)
+
+      expect(mockScope.setTag).toHaveBeenCalledWith('function.version', 'v2')
+      expect(mockScope.setTag).toHaveBeenCalledWith('function.name', 'task-v2-function')
+      expect(mockScope.setContext).toHaveBeenCalledWith('Task Request', {
+        id: 'task-456',
+        queueName: 'my-queue',
+        retryCount: 2,
+        data: { data: 'test-data' },
+      })
+    })
+
+    it('should use on-task-dispatched as operation name', async () => {
+      const handler = vi.fn().mockResolvedValue('success')
+      const wrapper = sentryWrapOnTaskDispatched({ name: 'task-v2-function' }, handler)
+
+      const request: Request<{ foo: string }> = {
+        id: 'task-123',
+        queueName: 'test-queue',
+        retryCount: 0,
+        data: { foo: 'bar' },
+      } as Request<{ foo: string }>
+
+      await wrapper(request)
+
+      expect(SentryNode.startSpan).toHaveBeenCalledWith(
+        expect.objectContaining({
+          name: 'task-v2-function',
+          op: 'on-task-dispatched',
         }),
         expect.any(Function),
       )

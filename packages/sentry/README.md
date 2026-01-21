@@ -92,6 +92,21 @@ export const dailyCleanup = onSchedule(
 )
 ```
 
+#### Task Queue Function
+
+```typescript
+import { onTaskDispatched } from 'firebase-functions/v2/tasks'
+import { sentryWrapOnTaskDispatched } from '@valian/node-sentry'
+
+export const processTask = onTaskDispatched(
+  { retryConfig: { maxAttempts: 3 } },
+  sentryWrapOnTaskDispatched({ name: 'processTask' }, async (request) => {
+    const taskData = request.data
+    // Your task processing logic here
+  }),
+)
+```
+
 ### Firebase Functions v1
 
 #### Firestore Trigger
@@ -277,6 +292,7 @@ wrapperFunction({ name: 'functionName' }, async (event, context?) => {
 - `sentryWrapOnDocumentChange` - Firestore document changes
 - `sentryWrapOnMessagePublished` - PubSub messages
 - `sentryWrapOnSchedule` - Scheduled functions
+- `sentryWrapOnTaskDispatched` - Task queue functions
 
 #### V1 Wrappers
 

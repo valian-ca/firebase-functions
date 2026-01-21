@@ -5,6 +5,7 @@ import { type CloudEvent } from 'firebase-functions/core'
 import { type FirestoreEvent } from 'firebase-functions/firestore'
 import { type MessagePublishedData } from 'firebase-functions/pubsub'
 import { type ScheduledEvent } from 'firebase-functions/scheduler'
+import { type Request } from 'firebase-functions/tasks'
 import { type Change, type EventContext } from 'firebase-functions/v1'
 import { type UserRecord } from 'firebase-functions/v1/auth'
 import { type DocumentSnapshot } from 'firebase-functions/v1/firestore'
@@ -201,4 +202,22 @@ export const sentryWrapOnSchedule =
         scope.setTag('function.name', options.name)
       },
       sentryCaptureUnhandledExceptionWrapper(() => handler(event)),
+    )
+
+export const sentryWrapOnTaskDispatched =
+  <T, R>(options: SentryWrapperParams, handler: (request: Request<T>) => Promise<R>) =>
+  async (request: Request<T>) =>
+    sentryConfigurationWrapper(
+      { name: options.name, op: 'on-task-dispatched' },
+      (scope) => {
+        scope.setTag('function.version', 'v2')
+        scope.setTag('function.name', options.name)
+        scope.setContext('Task Request', {
+          id: request.id,
+          queueName: request.queueName,
+          retryCount: request.retryCount,
+          data: request.data,
+        })
+      },
+      sentryCaptureUnhandledExceptionWrapper(() => handler(request)),
     )

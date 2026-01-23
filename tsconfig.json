@@ -8,6 +8,9 @@
     },
     {
       "path": "./packages/sentry"
+    },
+    {
+      "path": "./packages/pino-logger"
     }
   ]
 }

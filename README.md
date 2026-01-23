@@ -15,6 +15,18 @@ A smart logger wrapper for Firebase Functions that automatically switches betwee
 
 [View Documentation](./packages/logger/README.md)
 
+### [@valian/pino-logger](./packages/pino-logger)
+
+A pino-based logger for Firebase Functions that automatically switches between pretty output in development and forwards to the native `firebase-functions` logger in production.
+
+- 🌲 Full Pino API with child loggers, bindings, and structured logging
+- 🔄 Automatic Mode Switching between pino-pretty and Firebase logger
+- 🎯 GCP Severity Mapping with range-based level support
+- 📊 Structured JSON Logging compatible with GCP Cloud Logging
+- ⚙️ Configurable Log Levels via environment variables
+
+[View Documentation](./packages/pino-logger/README.md)
+
 ### [@valian/node-sentry](./packages/sentry)
 
 A comprehensive Sentry integration library for Firebase Functions (v1 and v2) that provides automatic error tracking, context enrichment, and performance monitoring.
